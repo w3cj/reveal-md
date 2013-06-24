@@ -1,0 +1,104 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>reveal-md by webpro</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>reveal-md</h1>
+        <p>Markdown server for reveal.js</p>
+
+        <p class="view"><a href="https://github.com/webpro/reveal-md">View the Project on GitHub <small>webpro/reveal-md</small></a></p>
+
+
+        <ul>
+          <li><a href="https://github.com/webpro/reveal-md/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/webpro/reveal-md/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/webpro/reveal-md">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1>
+<a name="reveal-md" class="anchor" href="#reveal-md"><span class="octicon octicon-link"></span></a>reveal-md</h1>
+
+<p>Markdown server for <a href="http://lab.hakim.se/reveal-js/#/">reveal.js</a>.</p>
+
+<h2>
+<a name="installation" class="anchor" href="#installation"><span class="octicon octicon-link"></span></a>Installation</h2>
+
+<pre><code>npm install -g reveal-md
+</code></pre>
+
+<h2>
+<a name="quick-demo" class="anchor" href="#quick-demo"><span class="octicon octicon-link"></span></a>Quick demo</h2>
+
+<pre><code>reveal-md demo
+</code></pre>
+
+<h2>
+<a name="usage" class="anchor" href="#usage"><span class="octicon octicon-link"></span></a>Usage</h2>
+
+<p>To open specific Markdown file as Reveal.js slideshow:</p>
+
+<pre><code>reveal-md slides.md
+</code></pre>
+
+<p>Show (recursive) directory listing of Markdown files:</p>
+
+<pre><code>reveal-md dir/
+</code></pre>
+
+<p>Show directory listing of Markdown files in current directory:</p>
+
+<pre><code>reveal-md
+</code></pre>
+
+<p>Override theme (default: <code>default</code>):</p>
+
+<pre><code>reveal-md slides.md --theme solarized
+</code></pre>
+
+<p>Override slide separator (default: <code>\n---\n</code>):</p>
+
+<pre><code>reveal-md slides.md --separator "^\n\n\n"
+</code></pre>
+
+<p>Override port (default: <code>1948</code>):</p>
+
+<pre><code>reveal-md slides.md --port 8888
+</code></pre>
+
+<h2>
+<a name="slide-separators" class="anchor" href="#slide-separators"><span class="octicon octicon-link"></span></a>Slide separators</h2>
+
+<ul>
+<li>To separate slides in Markdown, use three dashes (<code>---</code>, a ruler in Markdown), surrounded by empty lines. Or override as shown above.</li>
+<li>Reveal.js supports "vertical" slides as well. Use <code>----</code> by default (also surround by newlines). This can also be overridden using <code>--vertical</code> from CLI.</li>
+</ul><h2>
+<a name="notes" class="anchor" href="#notes"><span class="octicon octicon-link"></span></a>Notes</h2>
+
+<ul>
+<li>
+<code>reveal-md</code> always starts a local server and opens the default browser</li>
+<li>From any presentation, navigate to the root (e.g. <code>http://localhost:1948/</code>) to get directory listing of (linked) Markdown files. Root folder is resolved from Markdown file (or directory) <code>reveal-md</code> was started with.</li>
+</ul>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/webpro">webpro</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+    
+  </body>
+</html>
