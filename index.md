@@ -6,7 +6,7 @@ title: reveal-md
 
 # reveal-md
 
-Markdown server for [reveal.js](http://lab.hakim.se/reveal-js/#/).
+[reveal.js](http://lab.hakim.se/reveal-js/#/) on steroids! Get beautiful reveal.js presentations from your Markdown files.
 
 ## Installation
 
@@ -19,6 +19,28 @@ npm install -g reveal-md
 ``` bash
 reveal-md demo
 ```
+
+## Markdown in reveal.js
+
+The Markdown feature of reveal.js is awesome, and has an easy (and configurable) syntax to separate slides.
+Use three dashes surrounded by two blank lines (`\n---\n`).
+Example:
+
+``` text
+# Title
+
+* Point 1
+* Point 2
+
+---
+
+## Second slide
+
+> Best quote ever.
+
+```
+
+The separator syntax can be overriden (e.g. I like to use three blank lines).
 
 ## Usage
 
@@ -52,16 +74,17 @@ Override slide separator (default: `\n---\n`):
 reveal-md slides.md --separator "^\n\n\n"
 ```
 
+Override vertical/nested slide separator (default: `\n----\n`):
+
+``` bash
+reveal-md slides.md --vertical "^\n\n"
+```
+
 Override port (default: `1948`):
 
 ``` bash
 reveal-md slides.md --port 8888
 ```
-
-## Slide separators
-
-* To separate slides in Markdown, use three dashes (`---`, a ruler in Markdown), surrounded by empty lines. Or override as shown above.
-* Reveal.js supports "vertical" slides as well. Use `----` by default (also surround by newlines). This can also be overridden using `--vertical` from CLI.
 
 ## Notes
 
