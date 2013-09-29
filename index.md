@@ -1,9 +1,3 @@
----
-layout: index
-type: project
-title: reveal-md
----
-
 # reveal-md
 
 [reveal.js](http://lab.hakim.se/reveal-js/#/) on steroids! Get beautiful reveal.js presentations from your Markdown files.
