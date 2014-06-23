@@ -37,9 +37,16 @@ Example:
 
 > Best quote ever.
 
+Note: speaker notes FTW!
+
 ```
 
 The separator syntax can be overriden (e.g. I like to use three blank lines).
+
+## Speaker Notes
+
+You can use the [speaker notes](https://github.com/hakimel/reveal.js#speaker-notes) feature by using a line starting with `Note:`.
+
 
 ## Usage
 
@@ -89,6 +96,16 @@ Override port (default: `1948`):
 
 ``` bash
 reveal-md slides.md --port 8888
+```
+
+## Print Support
+
+*Requires phantomjs to be installed (preferably globally)*
+
+This will try to create a pdf with the passed in file (eg slides.md) and outputted to the name passed into the `--print` parameter (eg slides.pdf)
+
+``` bash
+reveal-md slides.md --print slides.pdf
 ```
 
 ## Notes
