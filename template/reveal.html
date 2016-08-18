@@ -3,15 +3,23 @@
     <head>
         <meta charset="utf-8">
         <title>{{{title}}}</title>
-        <link rel="stylesheet" href="css/reveal.css">
-        <link rel="stylesheet" href="{{{theme}}}" id="theme">
+        <link rel="stylesheet" href="/css/reveal.css">
+        <link rel="stylesheet" href="/{{{theme}}}" id="theme">
         <!-- For syntax highlighting -->
-        <link rel="stylesheet" href="lib/css/{{{highlightTheme}}}.css">
+        <link rel="stylesheet" href="/lib/css/{{{highlightTheme}}}.css">
 
         <!-- If the query includes 'print-pdf', use the PDF print sheet -->
         <script>
-          document.write( '<link rel="stylesheet" href="css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+          document.write( '<link rel="stylesheet" href="/css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
         </script>
+
+        <style media="screen">
+          .logo {
+            position: fixed;
+            bottom: 15px;
+            left: 10px;
+          }
+        </style>
     </head>
     <body>
 
@@ -19,8 +27,9 @@
             <div class="slides">{{{slides}}}</div>
         </div>
 
-        <script src="lib/js/head.min.js"></script>
-        <script src="js/reveal.js"></script>
+        <img src="http://www.galvanize.com/wp-content/themes/galvanize/img/galvanize-logo.svg" class="logo"/>
+        <script src="/lib/js/head.min.js"></script>
+        <script src="/js/reveal.js"></script>
 
         <script>
             function extend() {
@@ -38,12 +47,12 @@
 
             // Optional libraries used to extend on reveal.js
             var deps = [
-              { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
-              { src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector('[data-markdown]'); } },
-              { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector('[data-markdown]'); } },
-              { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
-              { src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
-              { src: 'plugin/math/math.js', async: true }
+              { src: '/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+              { src: '/plugin/markdown/marked.js', condition: function() { return !!document.querySelector('[data-markdown]'); } },
+              { src: '/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector('[data-markdown]'); } },
+              { src: '/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+              { src: '/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
+              { src: '/plugin/math/math.js', async: true }
             ];
 
             // default options to init reveal.js
@@ -63,9 +72,29 @@
             options = extend(defaultOptions, options, queryOptions);
             Reveal.initialize(options);
         </script>
-        
-        {{#scripts}}
-          <script src="/scripts/{{.}}"></script>
-        {{/scripts}}
+
+        <!-- {{#scripts}}
+          <script src="scripts/{{.}}"></script>
+        {{/scripts}} -->
+
+        <script>
+          var loadedIframes = {};
+
+          function handler(event) {
+            var iframes = event.currentSlide.querySelectorAll('iframe');
+
+            Array.prototype.forEach.call(iframes, function (iframe) {
+              if(!loadedIframes[iframe.dataset.src]) {
+                console.log('In viewport!', iframe);
+                loadedIframes[iframe.dataset.src] = true;
+                iframe.setAttribute('src', iframe.dataset.src);
+              } else {
+                console.log('Already loaded!')
+              }
+            });
+          }
+
+          Reveal.addEventListener('slidechanged', handler);
+        </script>
     </body>
 </html>
