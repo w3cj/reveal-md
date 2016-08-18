@@ -134,6 +134,7 @@ var renderMarkdownAsSlides = function(req, res) {
     } else {
         var parsedUrl = url.parse(req.url.replace(/^\//, ''));
         if(parsedUrl) {
+          try {
             (parsedUrl.protocol === 'https:' ? https : http).get(parsedUrl.href, function(response) {
                 response.on('data', function(chunk) {
                     markdown += chunk;
@@ -145,6 +146,11 @@ var renderMarkdownAsSlides = function(req, res) {
                 console.log('Problem with path/url: ', req.url, e.message);
                 render(res, e.message);
             });
+          } catch (e) {
+            console.log('Error get:', e);
+            console.log('Serving static', req.url);
+            staticDir(opts.userBasePath);
+          }
         } else {
           console.log('Serving static', req.url);
           staticDir(opts.userBasePath);
