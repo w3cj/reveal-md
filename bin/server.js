@@ -67,10 +67,11 @@ var startMarkdownServer = function(options) {
     app.use('/lib/css/' + opts.highlightTheme + '.css',
         staticDir(path.join(serverBasePath, 'node_modules', 'highlight.js', 'styles', opts.highlightTheme + '.css')));
 
-    app.get(/(\w+\.md)$/, renderMarkdownAsSlides);
+    // app.get(/(\w+\.md)$/, renderMarkdownAsSlides);
     app.get('/scripts/*', getScript);
     app.get('/', renderMarkdownFileListing);
-    app.get('/*', staticDir(opts.userBasePath));
+    // app.get('/*', staticDir(opts.userBasePath));
+    app.get('/*', renderMarkdownAsSlides);
 
     var server = app.listen(opts.port || null);
 
@@ -141,9 +142,12 @@ var renderMarkdownAsSlides = function(req, res) {
                     render(res, markdown);
                 });
             }).on('error', function(e) {
-                console.log('Problem with path/url: ' + e.message);
+                console.log('Problem with path/url: ', req.url, e.message);
                 render(res, e.message);
             });
+        } else {
+          console.log('Serving static', req.url);
+          staticDir(opts.userBasePath);
         }
     }
 };
