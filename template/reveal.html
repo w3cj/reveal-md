@@ -84,7 +84,7 @@
             var iframes = event.currentSlide.querySelectorAll('iframe');
 
             Array.prototype.forEach.call(iframes, function (iframe) {
-              if(!loadedIframes[iframe.dataset.src]) {
+              if(iframe.dataset.src && !loadedIframes[iframe.dataset.src]) {
                 console.log('In viewport!', iframe);
                 loadedIframes[iframe.dataset.src] = true;
                 iframe.setAttribute('src', iframe.dataset.src);
