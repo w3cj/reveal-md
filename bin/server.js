@@ -8,7 +8,9 @@ var path = require('path'),
     Mustache = require('mustache'),
     glob = require('glob'),
     md = require('reveal.js/plugin/markdown/markdown'),
-    exec = require('child_process').exec;
+    exec = require('child_process').exec,
+    fetch = require('node-fetch'),
+    cookieParser = require('cookie-parser');
 
 var app = express();
 var staticDir = express.static;
@@ -64,12 +66,20 @@ var startMarkdownServer = function(options) {
 
     fillOpts(options);
 
+    app.use(cookieParser());
     app.use('/lib/css/' + opts.highlightTheme + '.css',
         staticDir(path.join(serverBasePath, 'node_modules', 'highlight.js', 'styles', opts.highlightTheme + '.css')));
 
     // app.get(/(\w+\.md)$/, renderMarkdownAsSlides);
     app.get('/scripts/*', getScript);
-    app.get('/', renderMarkdownFileListing);
+    app.get('/login', (req, res) => {
+      res.redirect('https://api.inquire.gteach.xyz/auth/slides/github');
+    });
+    app.get('/login/callback/:token', (req, res) => {
+      res.cookie('token', req.params.token);
+      res.redirect('/');
+    });
+    app.get('/', isLoggedIn, renderMarkdownFileListing);
     // app.get('/*', staticDir(opts.userBasePath));
     app.get('/*', renderMarkdownAsSlides);
 
@@ -215,6 +225,26 @@ var to_html = function(options) {
 
         console.log(html);
     }
+}
+
+var isLoggedIn = function(req, res, next) {
+  var token = req.cookies.token;
+
+  if(token) {
+    fetch('https://api.inquire.gteach.xyz', {
+      headers: { 'Authorization': 'Bearer ' + token },
+    }).then(function(res) {
+        return res.json();
+    }).then(function(result) {
+      if(result.user !== null && result.user !== undefined) {
+        next();
+      } else {
+        res.send('UnAuthorized<br><a href="/login">Login</a>');
+      }
+    });
+  } else {
+    res.send('UnAuthorized<br><a href="/login">Login</a>');
+  }
 }
 
 module.exports = {
